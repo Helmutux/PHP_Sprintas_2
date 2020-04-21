@@ -1,0 +1,141 @@
+header{
+    background-color: darkslategray;
+    color: cornsilk;
+}
+header a{
+    display: inline-block;
+    color: cornsilk;
+    padding: 0.3em;
+    margin: 1em 0 1em 1em;
+    font-size: 20px;
+    border: 1px solid cornsilk;
+    border-radius: 3px;
+}
+header a:hover{
+    background: rgb(69, 111, 111);
+    color: cornsilk;
+    text-decoration: none;
+    transform: scale(1.07);
+}
+header a:active{
+    background: rgb(69, 111, 111);
+    color: cornsilk;
+    text-decoration: none;
+    transform: scale(0.95);
+}
+header h1{
+    padding-bottom: 0.75em;
+    text-align: center;
+    font-size: 3.5rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+}
+main h3{
+    display: block;
+    margin: 1em;
+}
+table{
+    margin-top: 0.75em;
+}
+footer{
+    background-color: darkslategray;
+    color: cornsilk;
+}
+footer div{
+    display: inline-block;
+    margin-left: 2em;
+    padding: 0.5em;
+    
+}
+footer div a{
+    text-decoration: none;
+    color: cornsilk;
+}
+footer div a:hover{
+    display: inline-block;
+    color: cornsilk;
+    text-decoration: none;
+    transform: scale(1.1);
+}
+.view{
+    display: inline-block;
+    background: dimgray;
+    color: cornsilk;
+    margin-left: 0.25em;
+    font-size: 16px;
+    border: 1px solid rgb(50, 49, 49);;
+    border-radius: 3px;
+}
+a.view:hover{
+    display: inline-block;
+    color: cornsilk;
+    text-decoration: none;
+    transform: scale(1.07);
+}
+a.view:active{
+    display: inline-block;
+    color: cornsilk;
+    text-decoration: none;
+    transform: scale(0.95);
+}
+.edit{
+    display: inline-block;
+    background: rgb(255, 235, 185);
+    color: rgb(50, 49, 49);
+    margin-left: 0.25em;
+    font-size: 16px;
+    border: 1px solid rgb(50, 49, 49);;
+    border-radius: 3px;
+}
+a.edit:hover{
+    display: inline-block;
+    text-decoration: none;
+    transform: scale(1.07);
+}
+a.edit:active{
+    display: inline-block;
+    text-decoration: none;
+    transform: scale(0.95);
+}
+.delete{
+    display: inline-block;
+    background: red;
+    color: cornsilk;
+    margin-left: 0.25em;
+    font-size: 16px;
+    border: 1px solid rgb(50, 49, 49);;
+    border-radius: 3px;
+}
+a.delete:hover{
+    display: inline-block;
+    color: cornsilk;
+    text-decoration: none;
+    transform: scale(1.07);
+}
+a.delete:active{
+    display: inline-block;
+    color: cornsilk;
+    text-decoration: none;
+    transform: scale(0.95);
+}
+.add{
+    display: inline-block;
+    background: green;
+    color: cornsilk;
+    margin-left: 0.25em;
+    font-size: 16px;
+    border: 1px solid rgb(50, 49, 49);;
+    border-radius: 3px;
+}
+a.add:hover{
+    display: inline-block;
+    color: cornsilk;
+    text-decoration: none;
+    transform: scale(1.07);
+}
+a.add:active{
+    display: inline-block;
+    color: cornsilk;
+    text-decoration: none;
+    transform: scale(0.95);
+}
