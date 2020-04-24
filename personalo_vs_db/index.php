@@ -53,28 +53,31 @@
                     <!-- apsirasome lenteles virsu  -->
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Vardas</th>
                             <th>Pavardė</th>
                             <th>Telefonas</th>
-                            <th>Priskirtas projektas</th>
+                            <th>Atsakingas už projektą</th>
                             <th>Įrašų redagavimas</th>
                         </tr>
                     </thead>
                     
                     <tbody>
-                    <!-- apsirasome lenteles pildyma php kodo pagalba is duomenu bazes -->
-                        <?php                  
-                        $query = 'SELECT * FROM personalas';
+                    <!-- apsirasome lenteles pildyma php kodo pagalba is duomenu bazes-->
+                        <?php
+
+                        //pasiimame reikiamus duomenis uzklausos pagalba is personalas ir projektai (apie priskirta projekta) lenteliu                    
+                        $query = 'SELECT person_id, Vardas, Pavardė, Telefonas,
+                        (SELECT Pavadinimas FROM projektai WHERE personalas.pro_id = projektai.pro_id) as Projektas
+                        FROM personalas 
+                        ORDER BY person_id';
                         $result = mysqli_query($serveris, $query) or die (mysqli_error($serveris));
                 
                         while ($row = mysqli_fetch_assoc($result)) {                
                             echo '<tr>';
-                            echo '<td>'. $row['person_id'].'</td>';
                             echo '<td>'. $row['Vardas'].'</td>';
                             echo '<td>'. $row['Pavardė'].'</td>';
                             echo '<td>'. $row['Telefonas'].'</td>';
-                            echo '<td>'. $row['Priskirtas_projektas'].'</td>';
+                            echo '<td>'. $row['Projektas'].'</td>';
                             // pridedame irasu perziuros, redagavimo, trynimo mygtukus
                             echo '<td> <a class="btn btn-xs view" href="view.php?action=edit & id='.$row['person_id'] . '" > Peržiūrėti </a> ';
                             echo ' <a class="btn btn-xs edit" href="edit.php?action=edit & id='.$row['person_id'] . '"> Redaguoti </a> ';
@@ -94,7 +97,7 @@
             D.Kulvinskas
         </div>
         <div>
-            2020-ieji, 37 karantino diena
+            2020-ieji, 39 karantino diena
         </div>
         <div>
             <a href="http://donatas.site">Asmeninis studento puslapis</a>

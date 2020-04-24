@@ -55,10 +55,11 @@
                     <input class="form-control" placeholder="Pavardė" name="pavarde">
                     </div> 
                     <div class="form-group">
-                    <input class="form-control" placeholder="Telefonas" name="telefonas">
-                    </div> 
+                    <input class="form-control" placeholder="Kontaktinis telefonas" name="telefonas">
+                    </div>
                     <div class="form-group">
-                    <input class="form-control" placeholder="Priskirtas projektas" name="projektas">
+                    <label for="">Projekto, kuriam darbuotojas priskiriamas, unikalus ID (pasitikslinti naudojant projekto peržiūrą)</label>
+                    <input class="form-control" placeholder="Projekto unikalus id" name="pro_id">
                     </div>  
                     <button type="submit" class="btn add">Išsaugoti</button>
                     <button type="reset" class="btn delete">Išvalyti</button>

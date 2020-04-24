@@ -56,9 +56,6 @@
                     </div> 
                     <div class="form-group">
                     <input class="form-control" placeholder="Realizavimo pradžios data" name="data">
-                    </div> 
-                    <div class="form-group">
-                    <input class="form-control" placeholder="Atsakingas personalas" name="atsakingas">
                     </div>  
                     <button type="submit" class="btn add">Išsaugoti</button>
                     <button type="reset" class="btn delete">Išvalyti</button>

@@ -45,7 +45,10 @@
   <main>           
   <?php 
     //pasiimame atskiro darbuotojo iraso duomenis is lenteles personalas duomenu bazeje 
-    $query = 'SELECT * FROM personalas
+    $query = 'SELECT person_id, Vardas, Pavardė, Telefonas,
+      (SELECT Pavadinimas FROM projektai WHERE personalas.pro_id = projektai.pro_id) as Projektas,
+      (SELECT pro_id FROM projektai WHERE personalas.pro_id = projektai.pro_id) as projekto_id
+      FROM personalas 
       WHERE
       person_id ='.$_GET['id'];
       $result = mysqli_query($serveris, $query) or die(mysqli_error($serveris));
@@ -55,7 +58,8 @@
         $name= $row['Vardas'];
         $surname=$row['Pavardė'];
         $phone=$row['Telefonas'];
-        $project=$row['Priskirtas_projektas'];
+        $project=$row['Projektas'];
+        $pro_id=$row['projekto_id'];
       }
       $id = $_GET['id'];
   ?>
@@ -64,18 +68,30 @@
       <div class="col-lg-6">
         <form role="form" method="post" action="index.php">
           <!-- uzsipildom forma gautais is duomenu bazes irasais -->
-            <div class="form-group">
-              <input class="form-control" placeholder="Vardas" name="vardas" value="<?php echo $name; ?>">
+          <div class="form-group">
+              <label for="person_id">Personalo unikalus ID</label>
+              <input class="form-control" name="person_id" value="<?php echo $pid; ?>">
             </div>
             <div class="form-group">
-              <input class="form-control" placeholder="Pavardė" name="pavarde" value="<?php echo $surname; ?>">
+            <label for="vardas">Vardas</label>
+              <input class="form-control" name="vardas" value="<?php echo $name; ?>">
+            </div>
+            <div class="form-group">
+            <label for="pavarde">Pavardė</label>
+              <input class="form-control" name="pavarde" value="<?php echo $surname; ?>">
             </div> 
             <div class="form-group">
-              <input class="form-control" placeholder="Telefonas" name="telefonas" value="<?php echo $phone; ?>">
+              <label for="telefonas">Telefonas</label>
+              <input class="form-control" name="telefonas" value="<?php echo $phone; ?>">
             </div> 
             <div class="form-group">
-              <input class="form-control" placeholder="Priskirtas projektas" name="project" value="<?php echo $project; ?>">
-            </div>   
+            <label for="project">Priskirtas projektas</label>
+              <input class="form-control" name="project" value="<?php echo $project; ?>">
+            </div>
+            <div class="form-group">
+              <label for="pro_id">Priskirto projekto unikalus ID</label>
+              <input class="form-control" name="pro_id" value="<?php echo $pro_id; ?>">
+            </div>      
             <button type="submit" class="btn view">Grįžti atgal į personalo lentelę</button>
         </form>  
       </div>

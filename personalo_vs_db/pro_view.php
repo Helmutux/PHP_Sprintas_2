@@ -44,10 +44,14 @@
   </header>
   <main>
   <?php
-  //pasiimame atskiro projekto iraso duomenis is lenteles projektai duomenu bazeje 
-  $query = 'SELECT * FROM projektai
-    WHERE
-    pro_id ='.$_GET['id'];
+  
+    //formuojame uzklausa, kurios pagalba gauname atskiro projekto duomenis, bei ji atsakingu (ir apjungta, jei daugiau nei 1 atsakingas) personala
+    $query = 'SELECT pro_id, Pavadinimas, Paskirtis, Realizavimo_pradžia, 
+        (SELECT GROUP_CONCAT(" ", CONCAT_WS(" ", Vardas, Pavardė)) FROM personalas GROUP BY pro_id HAVING personalas.pro_id = projektai.pro_id) as atsakingi 
+        FROM projektai 
+        GROUP BY projektai.pro_id 
+        HAVING pro_id ='.$_GET['id'];
+  
     $result = mysqli_query($serveris, $query) or die(mysqli_error($serveris));
     while($row = mysqli_fetch_array($result))
     {   
@@ -55,26 +59,35 @@
       $name= $row['Pavadinimas'];
       $purpose=$row['Paskirtis'];
       $sdate=$row['Realizavimo_pradžia'];
-      $manager=$row['Atsakingas_personalas'];
+      $manager = $row['atsakingi'];
     }
+  
     $id = $_GET['id'];       
 ?>
     <div class="col-lg-12">
       <h3>Detali peržiūra</h3>
       <div class="col-lg-6">
         <form role="form" method="post" action="pro_index.php">
-          <!-- uzsipildom forma gautais is duomenu bazes irasais -->
+          <!-- uzsipildom forma gautais is duomenu bazes ir uzklausos budu suformuotais irasais -->
           <div class="form-group">
-            <input class="form-control" placeholder="Pavadinimas" name="pavadinimas" value="<?php echo $name; ?>">
+            <label for="pro_id">Projekto unikalus ID</label>
+            <input class="form-control" name="pro_id" value="<?php echo $prid; ?>">
           </div>
           <div class="form-group">
-            <input class="form-control" placeholder="Projekto paskirtis" name="paskirtis" value="<?php echo $purpose; ?>">
+            <label for="pavadinimas">Pavadinimas</label>
+            <input class="form-control" name="pavadinimas" value="<?php echo $name; ?>">
+          </div>
+          <div class="form-group">
+            <label for="paskirtis">Projekto paskirtis</label>
+            <input class="form-control" name="paskirtis" value="<?php echo $purpose; ?>">
           </div> 
           <div class="form-group">
-            <input class="form-control" placeholder="Projekto realizavimo pradžios data" name="data" value="<?php echo $sdate; ?>">
+            <label for="data">Projekto realizavimo pradžios data</label>
+            <input class="form-control" name="data" value="<?php echo $sdate; ?>">
           </div> 
           <div class="form-group">
-            <input class="form-control" placeholder="Atsakingas personalas" name="atsakingas" value="<?php echo $manager; ?>">
+            <label for="atsakingas">Atsakingas personalas</label>
+            <input class="form-control" name="atsakingas" value="<?php echo $manager; ?>">
           </div>   
           <button type="submit" class="btn view">Grįžti atgal į projektų lentelę</button>
         </form>  

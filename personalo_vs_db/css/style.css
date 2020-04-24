@@ -57,6 +57,9 @@ footer div a:hover{
     text-decoration: none;
     transform: scale(1.1);
 }
+label{
+    font-weight: 500;
+}
 .view{
     display: inline-block;
     background: dimgray;
@@ -139,3 +142,4 @@ a.add:active{
     text-decoration: none;
     transform: scale(0.95);
 }
+

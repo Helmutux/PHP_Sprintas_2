@@ -10,7 +10,7 @@
     $name = $_POST['vardas'];
     $surname = $_POST['pavarde'];
     $phone = $_POST['telefonas'];
-    $project = $_POST['projektas'];
+    $pro_id = $_POST['pro_id'];
     
     //apsirasau prisijungima prie duomenu bazes:
     //prisijungimo duomenys
@@ -39,7 +39,7 @@
     //Apsirasau personalo lenteles uzpildyma naujais duomenimis. Gauname is edit.php 
         $query = "UPDATE personalas set Vardas ='$name',
             Pavardė ='$surname', Telefonas='$phone',
-            Priskirtas_projektas='$project'
+            pro_id='$pro_id'
             WHERE
             person_id ='$pid'";
             $result = mysqli_query($serveris, $query) or die(mysqli_error($serveris));

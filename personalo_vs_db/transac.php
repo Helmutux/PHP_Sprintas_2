@@ -36,13 +36,13 @@
         $name = $_POST['vardas'];
         $surname = $_POST['pavarde'];
         $phone = $_POST['telefonas'];
-        $project = $_POST['projektas'];
+        $pro_id= $_POST['pro_id'];
         // ivedame naujo iraso duomenis i lentele personalas duomenu bazeje
         switch($_GET['action']){
         case 'add':			
                 $query = "INSERT INTO `personalas`
-                (`person_id`,`Vardas`, `Pavardė`, `Telefonas`, `Priskirtas_projektas`)
-                VALUES (null,'$name','$surname','$phone','$project')";
+                (`person_id`,`Vardas`, `Pavardė`, `Telefonas`, `pro_id`)
+                VALUES (null,'$name','$surname','$phone', '$pro_id')";
         
                 $result = mysqli_query($serveris, $query) or die(mysqli_error($serveris));
 

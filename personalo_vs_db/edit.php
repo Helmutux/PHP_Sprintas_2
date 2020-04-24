@@ -54,7 +54,7 @@
         $name= $row['Vardas'];
         $surname=$row['Pavardė'];
         $phone=$row['Telefonas'];
-        $project=$row['Priskirtas_projektas'];
+        $pro_id=$row['pro_id'];
       }
       
       $id = $_GET['id'];      
@@ -70,17 +70,21 @@
               <input type="hidden" name="id" value="<?php echo $pid; ?>" />
           </div>
           <div class="form-group">
+            <label class="label" for="vardas">Darbuotojo vardas</label>
             <input class="form-control" placeholder="Vardas" name="vardas" value="<?php echo $name; ?>">
           </div>
           <div class="form-group">
+            <label for="pavarde">Darbuotoj pavardė</label>
             <input class="form-control" placeholder="Pavardė" name="pavarde" value="<?php echo $surname; ?>">
           </div> 
           <div class="form-group">
+            <label for="telefonas">Kontaktinis telefonas</label>
             <input class="form-control" placeholder="Telefonas" name="telefonas" value="<?php echo $phone; ?>">
           </div> 
           <div class="form-group">
-            <input class="form-control" placeholder="Priskirtas projektas" name="projektas" value="<?php echo $project; ?>">
-          </div> 
+            <label for="pro_id">Projekto, kuriam darbuotojas priskiriamas, unikalus ID (pasitikslinti naudojant projekto peržiūrą)</label>
+            <input class="form-control" placeholder="Priskirto projekto ID" name="pro_id" value="<?php echo $pro_id; ?>">
+          </div>  
           <!-- pakoreguotus, jei reikia personalo lenteles iraso duomenis siunciu i edit1.php suvedimui atgal i lentele  -->
           <button type="submit" class="btn edit">Atnaujinti duomenis</button>
         </form>  

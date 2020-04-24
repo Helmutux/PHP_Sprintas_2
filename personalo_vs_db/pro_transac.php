@@ -36,13 +36,12 @@
     $name = $_POST['pavadinimas'];
     $purpose = $_POST['paskirtis'];
     $sdate = $_POST['data'];
-    $manager = $_POST['atsakingas'];
     // ivedame naujo iraso duomenis i lentele projektai duomenu bazeje
     switch($_GET['action']){
         case 'add':			
                 $query = "INSERT INTO `projektai`
-                (`pro_id`,`Pavadinimas`, `Paskirtis`, `Realizavimo_pradžia`, `Atsakingas_personalas`)
-                VALUES (null,'$name','$purpose','$sdate','$manager')";
+                (`pro_id`,`Pavadinimas`, `Paskirtis`, `Realizavimo_pradžia`)
+                VALUES (null,'$name','$purpose','$sdate')";
         
                 $result = mysqli_query($serveris, $query) or die(mysqli_error($serveris));
 

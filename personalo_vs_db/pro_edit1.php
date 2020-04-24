@@ -15,7 +15,6 @@
     $name = $_POST['pavadinimas'];
     $purpose = $_POST['paskirtis'];
     $sdate = $_POST['data'];
-    $manager = $_POST['atsakingas'];
     
     //apsirasau prisijungima prie duomenu bazes:
     //prisijungimo duomenys
@@ -43,8 +42,7 @@
     }
 
         $query = "UPDATE projektai set Pavadinimas ='$name',
-            Paskirtis ='$purpose', Realizavimo_pradžia='$sdate',
-            Atsakingas_personalas='$manager'
+            Paskirtis ='$purpose', Realizavimo_pradžia='$sdate'
             WHERE
             pro_id ='$prid'";
             $result = mysqli_query($serveris, $query) or die(mysqli_error($serveris));

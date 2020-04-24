@@ -52,7 +52,6 @@
         $name= $row['Pavadinimas'];
         $purpose=$row['Paskirtis'];
         $sdate=$row['Realizavimo_pradžia'];
-        $manager=$row['Atsakingas_personalas'];
       }
       
       $id = $_GET['id'];     
@@ -66,17 +65,17 @@
               <input type="hidden" name="id" value="<?php echo $prid; ?>" />
           </div>
           <div class="form-group">
+            <label for="pavadinimas">Projekto pavadinimas</label>
             <input class="form-control" placeholder="Pavadinimas" name="pavadinimas" value="<?php echo $name; ?>">
           </div>
           <div class="form-group">
+            <label for="paskirtis">Projekto paskirtis</label>
             <input class="form-control" placeholder="Paskirtis" name="paskirtis" value="<?php echo $purpose; ?>">
           </div> 
           <div class="form-group">
+            <label for="data">Realizavimo pradžios data</label>
             <input class="form-control" placeholder="Realizavimo pradžios data" name="data" value="<?php echo $sdate; ?>">
-          </div> 
-          <div class="form-group">
-            <input class="form-control" placeholder="Atsakingas personalas" name="atsakingas" value="<?php echo $manager; ?>">
-          </div> 
+          </div>
           <button type="submit" class="btn edit">Atnaujinti duomenis</button>
         </form>  
       </div>

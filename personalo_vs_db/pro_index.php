@@ -65,8 +65,13 @@
                     
                     <tbody>
                     <!-- apsirasome lenteles pildyma php kodo pagalba is duomenu bazes -->
-                        <?php                  
-                        $query = 'SELECT * FROM projektai';
+                    <?php                  
+                        //formuojame uzklausa, kurios pagalba gauname ne tik projektai rows duomenis, bet ir atskiriems projektams priskirta ie apjungta (jei daugiau nei 1 atsakingas) personala
+                        $query = 'SELECT pro_id, Pavadinimas, Paskirtis, Realizavimo_pradžia, 
+                                    (SELECT GROUP_CONCAT(" ", CONCAT_WS(" ", Vardas, Pavardė)) FROM personalas GROUP BY pro_id HAVING personalas.pro_id = projektai.pro_id) as atsakingi 
+                                    FROM projektai 
+                                    GROUP BY projektai.pro_id;';
+
                         $result = mysqli_query($serveris, $query) or die (mysqli_error($serveris));
                 
                         while ($row = mysqli_fetch_assoc($result)) {                
@@ -75,7 +80,7 @@
                             echo '<td>'. $row['Pavadinimas'].'</td>';
                             echo '<td>'. $row['Paskirtis'].'</td>';
                             echo '<td>'. $row['Realizavimo_pradžia'].'</td>';
-                            echo '<td>'. $row['Atsakingas_personalas'].'</td>';
+                            echo '<td>'. $row['atsakingi'].'</td>';
                             // pridedame irasu perziuros, redagavimo, trynimo mygtukus
                             echo '<td> <a class="btn btn-xs view" href="pro_view.php?action=edit & id='.$row['pro_id'] . '" > Peržiūrėti </a> ';
                             echo ' <a class="btn btn-xs edit" href="pro_edit.php?action=edit & id='.$row['pro_id'] . '"> Redaguoti </a> ';
@@ -95,7 +100,7 @@
             D.Kulvinskas
         </div>
         <div>
-            2020-ieji, 37 karantino diena
+            2020-ieji, 39 karantino diena
         </div>
         <div>
             <a href="http://donatas.site">Asmeninis studento puslapis</a>
