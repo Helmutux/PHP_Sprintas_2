@@ -17,23 +17,13 @@
     $password = "mysql";
     $dbname = "personalo_vs_db";
 
-    //jungiuosi prie serverio
-    $serveris = mysqli_connect($servername, $username, $password);
+    //jungiuosi prie serverio ir pasirinktos duomenu bazes
+    $jungtis = new mysqli($servername, $username, $password, $dbname);
 
-    //kas vyksta, jei nepavyko prisijungti
-    if(!$serveris) {
-        error_log('Nepavyko prisijungti prie MySQL:'.mysqli_errors($serveris));
-        die ('Vidinė serverio klaida');
-    }
+    //jei prisijungimas nesekmingas, vartotojas gaus pranesima, nenurodant jokios failu katalogu strukturos
+    if($jungtis->connect_errno)exit('Klaida, jungiantis prie serverio');
 
-    //nurodau, kuria duomenu baze naudosiu
-    $pasirinkta_db = mysqli_select_db($serveris, $dbname);
-
-    //kas vyksta, jei nepavyko pasiekti duomenu bazes
-    if(!$pasirinkta_db) {
-        error_log('Duomenu bazes pasiekti nepavyko: '.mysqli_error($serveris));
-        die ('Vidinė serverio klaida');
-    }
+    mysqli_close($jungtis);
 ?> 
 <!-- apsirasau naujo darbuotojo pridejimo puslapi  -->
 <body>
@@ -49,16 +39,19 @@
                 <!-- apsirasau pridejimo forma. ivestus duomenis siusime apdoroti i transac.php puslapi -->
                 <form role="form" method="post" action="transac.php?action=add">
                     <div class="form-group">
-                    <input class="form-control" placeholder="Vardas" name="vardas">
+                        <label for="vardas">Darbuotojo vardas (būtina nurodyti)</label>
+                        <input class="form-control" placeholder="Vardas" name="vardas">
                     </div>
                     <div class="form-group">
-                    <input class="form-control" placeholder="Pavardė" name="pavarde">
+                        <label for="pavarde">Darbuotojo pavardė</label>
+                        <input class="form-control" placeholder="Pavardė" name="pavarde">
                     </div> 
                     <div class="form-group">
-                    <input class="form-control" placeholder="Kontaktinis telefonas" name="telefonas">
+                        <label for="telefonas">Darbuotojo kontaktinis telefonas (nebūtina nurodyti; galima patikslinti vėliau redaguojant)</label>
+                        <input class="form-control" placeholder="Kontaktinis telefonas" name="telefonas">
                     </div>
                     <div class="form-group">
-                    <label for="">Projekto, kuriam darbuotojas priskiriamas, unikalus ID (pasitikslinti naudojant projekto peržiūrą)</label>
+                    <label for="">Projekto, kuriam darbuotojas priskiriamas, unikalus ID (būtina nurodyti; pasitikslinti galimą reikšmę naudojant projekto peržiūrą)</label>
                     <input class="form-control" placeholder="Projekto unikalus id" name="pro_id">
                     </div>  
                     <button type="submit" class="btn add">Išsaugoti</button>

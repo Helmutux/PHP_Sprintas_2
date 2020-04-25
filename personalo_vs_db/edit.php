@@ -17,23 +17,12 @@
   $password = "mysql";
   $dbname = "personalo_vs_db";
 
-  //jungiuosi prie serverio
-  $serveris = mysqli_connect($servername, $username, $password);
+  //jungiuosi prie serverio ir pasirinktos duomenu bazes
+  $jungtis = @new mysqli($servername, $username, $password, $dbname);
 
-  //kas vyksta, jei nepavyko prisijungti
-  if(!$serveris) {
-      error_log('Nepavyko prisijungti prie MySQL:'.mysqli_errors($serveris));
-      die ('Vidinė serverio klaida'); 
-  }
+  //jei prisijungimas nesekmingas, vartotojas gaus pranesima, nenurodant jokios failu katalogu strukturos
+  if($jungtis->connect_errno)exit('Klaida, jungiantis prie serverio');
 
-  //nurodau, kuria duomenu baze naudosiu
-  $pasirinkta_db = mysqli_select_db($serveris, $dbname);
-
-  //kas vyksta, jei nepavyko pasiekti duomenu bazes
-  if(!$pasirinkta_db) {
-      error_log('Duomenu bazes pasiekti nepavyko: '.mysqli_error($serveris));
-      die ('Vidinė serverio klaida');
-  }
 ?>
 <!-- apsirasau darbuotojo (iraso is personalo lenteles) redagavimo puslapi   -->
 <body>
@@ -47,7 +36,7 @@
     $query = 'SELECT * FROM personalas
       WHERE
       person_id ='.$_GET['id'];
-      $result = mysqli_query($serveris, $query) or die(mysqli_error($serveris));
+      $result = mysqli_query($jungtis, $query) or die(mysqli_error($jungtis));
       while($row = mysqli_fetch_array($result))
       {   
         $pid= $row['person_id'];
@@ -57,7 +46,8 @@
         $pro_id=$row['pro_id'];
       }
       
-      $id = $_GET['id'];      
+      $id = $_GET['id'];
+      mysqli_close($jungtis);      
   ?>
   <main>
     

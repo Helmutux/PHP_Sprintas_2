@@ -17,23 +17,13 @@
     $password = "mysql";
     $dbname = "personalo_vs_db";
 
-    //jungiuosi prie serverio
-    $serveris = mysqli_connect($servername, $username, $password);
+    //jungiuosi prie serverio ir pasirinktos duomenu bazes
+    $jungtis = @new mysqli($servername, $username, $password, $dbname);
 
-    //kas vyksta, jei nepavyko prisijungti
-    if(!$serveris) {
-        error_log('Nepavyko prisijungti prie MySQL:'.mysqli_errors($serveris));
-        die ('Vidinė serverio klaida');
-    }
+    //jei prisijungimas nesekmingas, vartotojas gaus pranesima, nenurodant jokios failu katalogu strukturos. 
+    //Galima atskirti prisijungima prie serverio ir atskirai prie duomenu bazes, tuo paciu nurodant kurioje vietoje nepavyko, bet cia to nedarome
+    if($jungtis->connect_errno)exit('Klaida, jungiantis prie serverio');
 
-    //nurodau, kuria duomenu baze naudosiu
-    $pasirinkta_db = mysqli_select_db($serveris, $dbname);
-
-    //kas vyksta, jei nepavyko pasiekti duomenu bazes
-    if(!$pasirinkta_db) {
-        error_log('Duomenu bazes pasiekti nepavyko: '.mysqli_error($serveris));
-        die ('Vidinė serverio klaida');
-    }
 ?>
 <!-- apsirasome pagrindini puslapi -->
 <body>
@@ -70,7 +60,7 @@
                         (SELECT Pavadinimas FROM projektai WHERE personalas.pro_id = projektai.pro_id) as Projektas
                         FROM personalas 
                         ORDER BY person_id';
-                        $result = mysqli_query($serveris, $query) or die (mysqli_error($serveris));
+                        $result = mysqli_query($jungtis, $query) or die (mysqli_error($jungtis));
                 
                         while ($row = mysqli_fetch_assoc($result)) {                
                             echo '<tr>';
@@ -84,6 +74,7 @@
                             echo ' <a class="btn btn-xs delete" href="delete.php?type=personalas&delete & id=' . $row['person_id'] . '"> Trinti </a> </td>';
                             echo '</tr> ';
                         }
+                        mysqli_close($jungtis);
                         ?> 
                                     
                     </tbody>
@@ -97,10 +88,13 @@
             D.Kulvinskas
         </div>
         <div>
-            2020-ieji, 39 karantino diena
+            2020-ieji, 41 karantino diena
         </div>
         <div>
             <a href="http://donatas.site">Asmeninis studento puslapis</a>
+        </div>
+        <div>
+            Kopijuoti ir platinti nedraudžiama
         </div>
     </footer>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

@@ -23,30 +23,21 @@
     $password = "mysql";
     $dbname = "personalo_vs_db";
 
-    //jungiuosi prie serverio
-    $serveris = mysqli_connect($servername, $username, $password);
+    //jungiuosi prie serverio ir pasirinktos duomenu bazes
+    $jungtis = @new mysqli($servername, $username, $password, $dbname);
 
-    //kas vyksta, jei nepavyko prisijungti
-    if(!$serveris) {
-        error_log('Nepavyko prisijungti prie MySQL:'.mysqli_errors($serveris));
-        die ('Vidinė serverio klaida'); 
-    }
+    //jei prisijungimas nesekmingas, vartotojas gaus pranesima, nenurodant jokios failu katalogu strukturos
+    if($jungtis->connect_errno)exit('Klaida, jungiantis prie serverio');
 
-    //nurodau, kuria duomenu baze naudosiu
-    $pasirinkta_db = mysqli_select_db($serveris, $dbname);
-
-    //kas vyksta, jei nepavyko pasiekti duomenu bazes
-    if(!$pasirinkta_db) {
-        error_log('Duomenu bazes pasiekti nepavyko: '.mysqli_error($serveris));
-        die ('Vidinė serverio klaida');
-    }
+    //apsirasau redagavimo algoritmo 2 dali - suformuoju projektu lenteles iraso atnaujinimo uzklausa
 
         $query = "UPDATE projektai set Pavadinimas ='$name',
             Paskirtis ='$purpose', Realizavimo_pradžia='$sdate'
             WHERE
             pro_id ='$prid'";
-            $result = mysqli_query($serveris, $query) or die(mysqli_error($serveris));
-                        
+            $result = mysqli_query($jungtis, $query) or die(mysqli_error($jungtis));
+         
+        mysqli_close($jungtis);
     ?>	
     <script type="text/javascript">
         alert("Duomenys sėkmingai atnaujinti");

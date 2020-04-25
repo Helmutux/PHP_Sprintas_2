@@ -17,23 +17,13 @@
     $password = "mysql";
     $dbname = "personalo_vs_db";
 
-    //jungiuosi prie serverio
-    $serveris = mysqli_connect($servername, $username, $password);
+    //jungiuosi prie serverio ir pasirinktos duomenu bazes
+    $jungtis = @new mysqli($servername, $username, $password, $dbname);
 
-    //kas vyksta, jei nepavyko prisijungti
-    if(!$serveris) {
-        error_log('Nepavyko prisijungti prie MySQL:'.mysqli_errors($serveris));
-        die ('Vidinė serverio klaida');
-    }
+    //jei prisijungimas nesekmingas, vartotojas gaus pranesima, nenurodant jokios failu katalogu strukturos
+    if($jungtis->connect_errno)exit('Klaida, jungiantis prie serverio');
 
-    //nurodau, kuria duomenu baze naudosiu
-    $pasirinkta_db = mysqli_select_db($serveris, $dbname);
-
-    //kas vyksta, jei nepavyko pasiekti duomenu bazes
-    if(!$pasirinkta_db) {
-        error_log('Duomenu bazes pasiekti nepavyko: '.mysqli_error($serveris));
-        die ('Vidinė serverio klaida');
-    }
+    mysqli_close($jungtis);
 ?> 
 <body>
     <header>
@@ -49,13 +39,16 @@
                 <!-- apsirasau pridejimo forma -->
                 <form role="form" method="post" action="pro_transac.php?action=add">
                     <div class="form-group">
-                    <input class="form-control" placeholder="Projekto pavadinimas" name="pavadinimas">
+                        <label for="pavadinimas">Projekto pavadinimas (būtina nurodyti)</label>
+                        <input class="form-control" placeholder="Projekto pavadinimas" name="pavadinimas">
                     </div>
                     <div class="form-group">
-                    <input class="form-control" placeholder="Projekto paskirtis" name="paskirtis">
+                        <label for="paskirtis">Projekto paskirtis (būtina nurodyti)</label>
+                        <input class="form-control" placeholder="Projekto paskirtis" name="paskirtis">
                     </div> 
                     <div class="form-group">
-                    <input class="form-control" placeholder="Realizavimo pradžios data" name="data">
+                        <label for="data">Projekto realizavimo pradžios data (būtina nurodyti)</label>
+                        <input class="form-control" placeholder="Realizavimo pradžios data" name="data">
                     </div>  
                     <button type="submit" class="btn add">Išsaugoti</button>
                     <button type="reset" class="btn delete">Išvalyti</button>
